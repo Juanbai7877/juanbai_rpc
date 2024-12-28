@@ -1,7 +1,9 @@
-package com.yupi.example.consumer;
+package com.juanbai.example.consumer;
 
 
-import com.juanbai.easyrpc.proxy.ServiceProxyFactory;
+import com.juanbai.core.config.RpcConfig;
+import com.juanbai.core.proxy.ServiceProxyFactory;
+import com.juanbai.core.utils.ConfigUtils;
 import com.juanbai.example.common.module.User;
 import com.juanbai.example.common.service.UserService;
 
@@ -12,6 +14,9 @@ import com.juanbai.example.common.service.UserService;
 public class EasyConsumerExample {
 
     public static void main(String[] args) {
+
+        RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class,"rpc");
+        System.out.println(rpcConfig);
         // 动态代理
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
@@ -23,6 +28,8 @@ public class EasyConsumerExample {
         } else {
             System.out.println("user == null");
         }
+        long number = userService.getNumber();
+        System.out.println(number);
 
     }
 }

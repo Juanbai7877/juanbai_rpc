@@ -1,9 +1,10 @@
-package com.yupi.example.provider;
+package com.juanbai.example.provider;
 
 
-import com.juanbai.easyrpc.registry.LocalRegistry;
-import com.juanbai.easyrpc.server.HttpServer;
-import com.juanbai.easyrpc.server.VertxHttpServer;
+import com.juanbai.core.RpcApplication;
+import com.juanbai.core.registry.LocalRegistry;
+import com.juanbai.core.server.HttpServer;
+import com.juanbai.core.server.VertxHttpServer;
 import com.juanbai.example.common.service.UserService;
 
 /**
@@ -13,12 +14,14 @@ import com.juanbai.example.common.service.UserService;
 public class EasyProviderExample {
 
     public static void main(String[] args) {
+        RpcApplication.init();
+
         // 注册服务
         LocalRegistry.register(UserService.class.getName(), UserServiceImpl.class);
 
         // 启动 web 服务
         HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(8080);
+        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 
 }

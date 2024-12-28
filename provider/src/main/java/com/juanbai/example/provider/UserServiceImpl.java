@@ -1,4 +1,4 @@
-package com.yupi.example.provider;
+package com.juanbai.example.provider;
 
 
 import com.juanbai.example.common.module.User;

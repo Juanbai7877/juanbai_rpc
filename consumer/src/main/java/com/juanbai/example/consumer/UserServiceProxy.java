@@ -1,11 +1,11 @@
-package com.yupi.example.consumer;
+package com.juanbai.example.consumer;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import com.juanbai.easyrpc.model.RpcRequest;
-import com.juanbai.easyrpc.model.RpcResponse;
-import com.juanbai.easyrpc.serializer.JdkSerializer;
-import com.juanbai.easyrpc.serializer.Serializer;
+import com.juanbai.core.model.RpcRequest;
+import com.juanbai.core.model.RpcResponse;
+import com.juanbai.core.serializer.JdkSerializer;
+import com.juanbai.core.serializer.Serializer;
 import com.juanbai.example.common.module.User;
 import com.juanbai.example.common.service.UserService;
 
@@ -14,9 +14,6 @@ import java.io.IOException;
 /**
  * 用户服务静态代理
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @learn <a href="https://codefather.cn">编程宝典</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public class UserServiceProxy implements UserService {
 

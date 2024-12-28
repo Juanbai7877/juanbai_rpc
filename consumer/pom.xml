@@ -9,7 +9,7 @@
   <dependencies>
     <dependency>
       <groupId>com.juanbai.rpc</groupId>
-      <artifactId>juanbai-rpc-easy</artifactId>
+      <artifactId>juanbai-rpc-core</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
