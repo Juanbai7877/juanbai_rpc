@@ -10,7 +10,7 @@ import com.juanbai.example.common.service.UserService;
  * 简易服务消费者示例
  *
  */
-public class EasyConsumerExample {
+public class ConsumerExample {
 
     public static void main(String[] args) {
 

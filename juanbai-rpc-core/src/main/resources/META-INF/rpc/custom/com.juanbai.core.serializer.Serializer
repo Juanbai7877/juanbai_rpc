@@ -1,0 +1,4 @@
+jdk=com.juanbai.core.serializer.JdkSerializer
+hessian=com.juanbai.core.serializer.HessianSerializer
+json=com.juanbai.core.serializer.JsonSerializer
+kryo=com.juanbai.core.serializer.KryoSerializer
