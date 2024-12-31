@@ -1,5 +1,8 @@
 package com.juanbai.core.config;
 
+import com.juanbai.core.fault.retry.RetryStrategyKeys;
+import com.juanbai.core.fault.tolerant.TolerantStrategyKeys;
+import com.juanbai.core.loadbalancer.LoadBalancerKeys;
 import com.juanbai.core.serializer.SerializerKeys;
 import lombok.Data;
 
@@ -35,28 +38,28 @@ public class RpcConfig {
      */
     private String serializer = SerializerKeys.JDK;
 
-//    /**
-//     * 负载均衡器
-//     */
-//    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
-//
-//    /**
-//     * 重试策略
-//     */
-//    private String retryStrategy = RetryStrategyKeys.NO;
-//
-//    /**
-//     * 容错策略
-//     */
-//    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
+    /**
+     * 负载均衡器
+     */
+    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
+
+    /**
+     * 重试策略
+     */
+    private String retryStrategy = RetryStrategyKeys.NO;
+
+    /**
+     * 容错策略
+     */
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
 
     /**
      * 模拟调用
      */
     private boolean mock = false;
 
-//    /**
-//     * 注册中心配置
-//     */
-//    private RegistryConfig registryConfig = new RegistryConfig();
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig = new RegistryConfig();
 }
