@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/common/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/consumer/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/provider/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/juanbai-rpc-easy/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/juanbai-rpc-core/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="example-springboot-provider" />
+        <module name="common" />
+        <module name="provider" />
+        <module name="example-springboot-consumer" />
+        <module name="juanbai-rpc-easy" />
+        <module name="juan-rpc-sping-boot-starter" />
+        <module name="consumer" />
+        <module name="juanbai-rpc-core" />
+      </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.4.1/8dfcdae21f559be9c8a4d6d515e77cfd1d9c06a8/spring-boot-configuration-processor-3.4.1.jar" />
+        </processorPath>
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="juan-rpc-spring-boot-starter" target="17" />
+      <module name="juan-rpc-spring-boot-starter111.main" target="17" />
+      <module name="juan-rpc-spring-boot-starter111.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="example-springboot-consumer" options="" />
+      <module name="example-springboot-provider" options="" />
+      <module name="juan-rpc-sping-boot-starter" options="" />
+    </option>
+  </component>
+</project>

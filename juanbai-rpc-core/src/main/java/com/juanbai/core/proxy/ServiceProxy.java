@@ -1,7 +1,6 @@
 package com.juanbai.core.proxy;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.juanbai.core.RpcApplication;
@@ -16,18 +15,11 @@ import com.juanbai.core.loadbalancer.LoadBalancerFactory;
 import com.juanbai.core.model.RpcRequest;
 import com.juanbai.core.model.RpcResponse;
 import com.juanbai.core.model.ServiceMetaInfo;
-import com.juanbai.core.protocol.*;
 import com.juanbai.core.registry.Registry;
 import com.juanbai.core.registry.RegistryFactory;
 import com.juanbai.core.serializer.Serializer;
 import com.juanbai.core.serializer.SerializerFactory;
 import com.juanbai.core.server.tcp.VertxTcpClient;
-import io.vertx.core.Future;
-import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.net.NetClient;
-import io.vertx.core.net.NetSocket;
-import io.vertx.core.net.SocketAddress;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -35,8 +27,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * 服务代理（JDK 动态代理）
@@ -78,11 +68,6 @@ public class ServiceProxy implements InvocationHandler {
         Map<String, Object> requestParams = new HashMap<>();
         requestParams.put("methodName", rpcRequest.getMethodName());
         ServiceMetaInfo selectedServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
-//            // http 请求
-//            // 指定序列化器
-//            Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
-//            byte[] bodyBytes = serializer.serialize(rpcRequest);
-//            RpcResponse rpcResponse = doHttpRequest(selectedServiceMetaInfo, bodyBytes, serializer);
         // rpc 请求
         // 使用重试机制
         RpcResponse rpcResponse;
@@ -97,6 +82,27 @@ public class ServiceProxy implements InvocationHandler {
             rpcResponse = tolerantStrategy.doTolerant(null, e);
         }
         return rpcResponse.getData();
+    }
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param selectedServiceMetaInfo
+     * @param bodyBytes
+     * @return
+     * @throws IOException
+     */
+    private static RpcResponse doHttpRequest(ServiceMetaInfo selectedServiceMetaInfo, byte[] bodyBytes) throws IOException {
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+        // 发送 HTTP 请求
+        try (HttpResponse httpResponse = HttpRequest.post(selectedServiceMetaInfo.getServiceAddress())
+                .body(bodyBytes)
+                .execute()) {
+            byte[] result = httpResponse.bodyBytes();
+            // 反序列化
+            RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
+            return rpcResponse;
+        }
     }
 
 

@@ -1,2 +1,1 @@
 etcd=com.juanbai.core.registry.EtcdRegistry
-zookeeper=com.juanbai.core.registry.ZooKeeperRegistry
