@@ -8,6 +8,9 @@ import com.juanbai.core.registry.RegistryFactory;
 import com.juanbai.core.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * RPC 框架应用
  * 相当于 holder，存放了项目全局用到的变量。双检锁单例模式实现
@@ -32,6 +35,11 @@ public class RpcApplication {
         } catch (Exception e) {
             // 配置加载失败，使用默认值
             newRpcConfig = new RpcConfig();
+            try {
+                newRpcConfig.setServerHost(String.valueOf(InetAddress.getLocalHost().getHostAddress()));
+            }catch (Exception intenetException){
+                log.warn("获取本地地址失败");
+            }
         }
         init(newRpcConfig);
     }

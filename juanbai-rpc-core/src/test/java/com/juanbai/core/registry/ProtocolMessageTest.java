@@ -9,8 +9,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class ProtocolMessageTest {
+
+    @Test
+    public void testProtocolMessage() throws IOException {
+        System.out.println(String.valueOf(InetAddress.getLocalHost().getHostAddress()));
+
+    }
 
     @Test
     public void testEncodeAndDecode() throws IOException {

@@ -7,6 +7,7 @@
       <directory url="file://$PROJECT_DIR$/provider/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/juanbai-rpc-easy/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/juanbai-rpc-core/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/juanbai-rpc-spy/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
@@ -22,6 +23,7 @@
         <module name="juan-rpc-sping-boot-starter" />
         <module name="consumer" />
         <module name="juanbai-rpc-core" />
+        <module name="juanbai-rpc-spy" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />

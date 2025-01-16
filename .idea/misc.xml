@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/juan-rpc-sping-boot-starter/pom.xml" />
         <option value="$PROJECT_DIR$/example-springboot-provider/pom.xml" />
         <option value="$PROJECT_DIR$/example-springboot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/juanbai-rpc-spy/pom.xml" />
       </list>
     </option>
   </component>
