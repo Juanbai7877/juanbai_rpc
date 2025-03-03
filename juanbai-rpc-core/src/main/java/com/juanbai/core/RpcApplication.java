@@ -3,6 +3,7 @@ package com.juanbai.core;
 import com.juanbai.core.config.RegistryConfig;
 import com.juanbai.core.config.RpcConfig;
 import com.juanbai.core.constant.RpcConstant;
+import com.juanbai.core.model.ServiceMetaInfo;
 import com.juanbai.core.registry.Registry;
 import com.juanbai.core.registry.RegistryFactory;
 import com.juanbai.core.utils.ConfigUtils;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 /**
  * RPC 框架应用
@@ -19,6 +21,9 @@ import java.net.UnknownHostException;
 public class RpcApplication {
 
     private static volatile RpcConfig rpcConfig;
+
+    private static volatile HashMap<String, ServiceMetaInfo> serviceMetaInfoList;
+
 
     /**
      * 框架初始化，支持传入自定义配置
@@ -30,6 +35,7 @@ public class RpcApplication {
      */
     public static void init() {
         RpcConfig newRpcConfig;
+        serviceMetaInfoList=new HashMap<>();
         try {
             newRpcConfig = ConfigUtils.loadConfig(RpcConfig.class, RpcConstant.DEFAULT_CONFIG_PREFIX);
         } catch (Exception e) {
@@ -78,5 +84,14 @@ public class RpcApplication {
             }
         }
         return rpcConfig;
+    }
+
+    /**
+     * 获取配置
+     *
+     * @return
+     */
+    public static HashMap<String,ServiceMetaInfo> getServiceMetaInfo() {
+        return serviceMetaInfoList;
     }
 }

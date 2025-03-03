@@ -96,11 +96,19 @@ public class UserServiceImpl implements UserService {
         String tokenKey = LOGIN_USER_KEY+"-"+ user.getUserId() +"-"+ token;
 
         // 7.2.将User对象转为HashMap存储
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getUserId());
+        userDTO.setNickName(user.getUserName());
+        userDTO.setAvatarUrl(user.getAvatarUrl());
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
-                        .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
+                        .setFieldValueEditor((fieldName, fieldValue) -> {
+                            if (fieldValue == null) {
+                                return null; // 或者返回其他默认值
+                            }
+                            return fieldValue.toString();
+                        }));
         stringRedisTemplate.opsForHash().putAll(tokenKey, userMap);
         // 7.4.设置token有效期
         stringRedisTemplate.expire(tokenKey, LOGIN_USER_TTL, TimeUnit.MINUTES);
@@ -116,6 +124,7 @@ public class UserServiceImpl implements UserService {
         user.setNickName(USER_NICK_NAME_PREFIX + RandomUtil.randomString(10));
         //保存用户
         userMapper.insert(user);
+        user=userMapper.findByUserName(userName);
         return user;
     }
 

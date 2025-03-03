@@ -15,4 +15,8 @@ public interface LoadBalancerKeys {
 
     String CONSISTENT_HASH = "consistentHash";
 
+    String LEAST_ACTIVE = "leastActive";
+
+    String SHORTEST_RESPONSE = "shortestResponse";
+
 }

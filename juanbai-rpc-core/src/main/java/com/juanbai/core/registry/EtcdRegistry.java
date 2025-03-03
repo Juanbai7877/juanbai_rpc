@@ -5,6 +5,7 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.cron.CronUtil;
 import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
+import com.juanbai.core.RpcApplication;
 import com.juanbai.core.config.RegistryConfig;
 import com.juanbai.core.model.ServiceMetaInfo;
 
@@ -142,7 +143,8 @@ public class EtcdRegistry implements Registry {
                         KeyValue keyValue = keyValues.get(0);
                         String value = keyValue.getValue().toString(StandardCharsets.UTF_8);
                         ServiceMetaInfo serviceMetaInfo = JSONUtil.toBean(value, ServiceMetaInfo.class);
-                        register(serviceMetaInfo);
+                        ServiceMetaInfo newServiceMetaInfo = RpcApplication.getServiceMetaInfo().get(serviceMetaInfo.getServiceName());
+                        register(newServiceMetaInfo);
                     } catch (Exception e) {
                         throw new RuntimeException(key + "续签失败", e);
                     }

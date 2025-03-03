@@ -1,5 +1,6 @@
 package com.juanbai.core.server.tcp;
 
+import com.juanbai.core.RpcApplication;
 import com.juanbai.core.model.RpcRequest;
 import com.juanbai.core.model.RpcResponse;
 import com.juanbai.core.protocol.*;
@@ -43,9 +44,12 @@ public class TcpServerHandler implements Handler<NetSocket> {
             RpcResponse rpcResponse = new RpcResponse();
             long startTime = System.currentTimeMillis();
             long endTime;
+            ServiceMetaInfo serviceMetaInfo = null;
             try {
                 // 获取要调用的服务实现类，通过反射调用
                 Class<?> implClass = LocalRegistry.get(rpcRequest.getServiceName());
+                serviceMetaInfo= RpcApplication.getServiceMetaInfo().get(rpcRequest.getServiceName());
+                serviceMetaInfo.addServiceCallCount();
                 Method method = implClass.getMethod(rpcRequest.getMethodName(), rpcRequest.getParameterTypes());
                 Object result = method.invoke(implClass.newInstance(), rpcRequest.getArgs());
                 // 封装返回结果
@@ -54,14 +58,12 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 rpcResponse.setMessage("ok");
             } catch (Exception e) {
                 e.printStackTrace();
+                // 记录调用失败
+                if(serviceMetaInfo!=null){
+                    serviceMetaInfo.addServiceFailedCount();
+                }
                 rpcResponse.setMessage(e.getMessage());
                 rpcResponse.setException(e);
-                // 记录调用时间
-                endTime = System.currentTimeMillis();
-                long[] timeRecord = new long[]{
-                        startTime,endTime
-                };
-
             }
 
             // 发送响应，编码
@@ -72,10 +74,10 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 Buffer encode = ProtocolMessageEncoder.encode(responseProtocolMessage);
                 socket.write(encode);
             } catch (IOException e) {
-                endTime = System.currentTimeMillis();
-                long[] timeRecord = new long[]{
-                        startTime,endTime
-                };
+                // 记录调用失败
+                if(serviceMetaInfo!=null){
+                    serviceMetaInfo.addServiceFailedCount();
+                }
                 throw new RuntimeException("协议消息编码错误");
             }
             // 记录调用耗时
@@ -83,6 +85,9 @@ public class TcpServerHandler implements Handler<NetSocket> {
             long[] timeRecord = new long[]{
                     startTime,endTime
             };
+            if(serviceMetaInfo!=null){
+                serviceMetaInfo.addServiceCall(timeRecord);
+            }
         });
         socket.handler(bufferHandlerWrapper);
     }

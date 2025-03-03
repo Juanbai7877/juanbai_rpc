@@ -4,7 +4,6 @@ import com.juanbai.example.common.dto.Result;
 import com.juanbai.example.common.module.User;
 import com.juanbai.example.common.service.UserService;
 import com.juanbai.juanrpcspingbootstarter.annotation.RpcReference;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

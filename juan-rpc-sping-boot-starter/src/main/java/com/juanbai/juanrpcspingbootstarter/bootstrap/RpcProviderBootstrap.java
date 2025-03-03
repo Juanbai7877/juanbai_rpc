@@ -57,6 +57,7 @@ public class RpcProviderBootstrap implements BeanPostProcessor {
             serviceMetaInfo.setServicePort(rpcConfig.getServerPort());
             try {
                 registry.register(serviceMetaInfo);
+                RpcApplication.getServiceMetaInfo().put(serviceName,serviceMetaInfo);
             } catch (Exception e) {
                 throw new RuntimeException(serviceName + " 服务注册失败", e);
             }
