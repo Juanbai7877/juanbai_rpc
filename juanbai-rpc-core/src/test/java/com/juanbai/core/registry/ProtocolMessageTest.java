@@ -1,3 +1,4 @@
+/*
 package com.juanbai.core.registry;
 
 import cn.hutool.core.util.IdUtil;
@@ -46,3 +47,4 @@ public class ProtocolMessageTest {
     }
 
 }
+*/

@@ -41,6 +41,8 @@ public class TcpServerHandler implements Handler<NetSocket> {
             // 处理请求
             // 构造响应结果对象
             RpcResponse rpcResponse = new RpcResponse();
+            long startTime = System.currentTimeMillis();
+            long endTime;
             try {
                 // 获取要调用的服务实现类，通过反射调用
                 Class<?> implClass = LocalRegistry.get(rpcRequest.getServiceName());
@@ -54,6 +56,12 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 e.printStackTrace();
                 rpcResponse.setMessage(e.getMessage());
                 rpcResponse.setException(e);
+                // 记录调用时间
+                endTime = System.currentTimeMillis();
+                long[] timeRecord = new long[]{
+                        startTime,endTime
+                };
+
             }
 
             // 发送响应，编码
@@ -64,8 +72,17 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 Buffer encode = ProtocolMessageEncoder.encode(responseProtocolMessage);
                 socket.write(encode);
             } catch (IOException e) {
+                endTime = System.currentTimeMillis();
+                long[] timeRecord = new long[]{
+                        startTime,endTime
+                };
                 throw new RuntimeException("协议消息编码错误");
             }
+            // 记录调用耗时
+            endTime = System.currentTimeMillis();
+            long[] timeRecord = new long[]{
+                    startTime,endTime
+            };
         });
         socket.handler(bufferHandlerWrapper);
     }

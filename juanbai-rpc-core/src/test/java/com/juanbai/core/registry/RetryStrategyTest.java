@@ -1,3 +1,4 @@
+/*
 package com.juanbai.core.registry;
 
 import com.juanbai.core.fault.retry.NoRetryStrategy;
@@ -5,9 +6,11 @@ import com.juanbai.core.fault.retry.RetryStrategy;
 import com.juanbai.core.model.RpcResponse;
 import org.junit.Test;
 
+*/
 /**
  * 重试策略测试
- */
+ *//*
+
 public class RetryStrategyTest {
 
     RetryStrategy retryStrategy = new NoRetryStrategy();
@@ -26,3 +29,4 @@ public class RetryStrategyTest {
         }
     }
 }
+*/

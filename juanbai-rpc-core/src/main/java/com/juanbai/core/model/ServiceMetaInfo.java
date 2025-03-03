@@ -3,6 +3,8 @@ package com.juanbai.core.model;
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
+import java.util.LinkedList;
+
 /**
  * 服务元信息（注册信息）
  */
@@ -36,6 +38,64 @@ public class ServiceMetaInfo {
     private String serviceGroup = "default";
 
     /**
+     * 服务调用次数
+     */
+    private int serviceCallCount = 0 ;
+
+    /**
+     * 服务失败次数
+     */
+    private int serviceFailedCount = 0;
+
+    /**
+     * 服务近期调用费时列表
+     */
+    private LinkedList<long[]> serviceCallList = new LinkedList<>();
+
+    /**
+     * 服务近期总调用费时
+     */
+    private Long callTimes = 0L;
+
+    /**
+     * 增加调用费事记录
+     *
+     * @return
+     */
+    public Boolean  addServiceCall(long[] times) {
+        long l = System.currentTimeMillis();
+        for(long[] x :serviceCallList) {
+            if(l-x[1]>1000*30L) {
+                callTimes -= x[1]-x[0];
+                serviceCallList.removeFirst();
+            }
+        }
+        serviceCallList.addLast(times);
+        callTimes += times[1]-times[0];
+        return true;
+    }
+
+    /**
+     * 增加调用次数
+     *
+     * @return
+     */
+    public Boolean  addServiceCallCount() {
+        serviceCallCount++;
+        return true;
+    }
+
+    /**
+     * 增加调用失败次数
+     *
+     * @return
+     */
+    public Boolean  addServiceFailedCount() {
+        serviceFailedCount++;
+        return true;
+    }
+
+    /**
      * 获取服务键名
      *
      * @return
@@ -66,4 +126,6 @@ public class ServiceMetaInfo {
         }
         return String.format("%s:%s", serviceHost, servicePort);
     }
+
+
 }

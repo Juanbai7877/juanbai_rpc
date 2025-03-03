@@ -1,0 +1,19 @@
+pmos:
+  db:
+    host: 43.139.99.4 # 修改为你自己的虚拟机IP地址
+    pw: Pmos@123 # 修改为docker中的MySQL密码
+  redis:
+    host: 43.139.99.4 # 修改为你自己的虚拟机IP地址
+    pw: Pmos@123 # 修改为docker中的MySQL密码
+  mq:
+    name-server: "43.139.99.4:9876" # 修改为你自己的虚拟机IP地址
+    producer:
+      access-key: PMOS_RMQ
+      secret-key: 12345678
+    consumer:
+      access-key: PMOS_RMQ
+      secret-key: 12345678
+  mail:
+    password: SSWNEWLCZUZBMRBJ
+  nacos:
+    server-addr: 182.42.153.73:8848

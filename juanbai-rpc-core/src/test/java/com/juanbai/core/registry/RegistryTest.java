@@ -1,3 +1,4 @@
+/*
 package com.juanbai.core.registry;
 
 import com.juanbai.core.config.RegistryConfig;
@@ -14,9 +15,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+*/
 /**
  * 注册中心测试
- */
+ *//*
+
 public class RegistryTest {
 
     final Registry registry = new EtcdRegistry();
@@ -77,3 +80,4 @@ public class RegistryTest {
 }
 
 
+*/

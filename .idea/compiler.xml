@@ -21,6 +21,7 @@
         <module name="example-springboot-consumer" />
         <module name="juanbai-rpc-easy" />
         <module name="juan-rpc-sping-boot-starter" />
+        <module name="juan-rpc-springboot-provider" />
         <module name="consumer" />
         <module name="juanbai-rpc-core" />
         <module name="juanbai-rpc-spy" />
@@ -43,6 +44,7 @@
       <module name="example-springboot-consumer" options="" />
       <module name="example-springboot-provider" options="" />
       <module name="juan-rpc-sping-boot-starter" options="" />
+      <module name="juan-rpc-springboot-provider" options="-parameters" />
     </option>
   </component>
 </project>
