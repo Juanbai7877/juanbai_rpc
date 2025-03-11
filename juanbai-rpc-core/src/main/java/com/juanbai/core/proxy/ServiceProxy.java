@@ -82,7 +82,7 @@ public class ServiceProxy implements InvocationHandler {
             HashMap<String, Object> tolerantContent = new HashMap<>();
             tolerantContent.put("selectedServiceMetaInfo", selectedServiceMetaInfo);
             tolerantContent.put("rpcRequest", rpcRequest);
-            tolerantContent.put("requestParams", requestParams);
+            tolerantContent.put("serviceMetaInfoList", serviceMetaInfoList);
             rpcResponse = tolerantStrategy.doTolerant(null, e);
         }
         return rpcResponse.getData();

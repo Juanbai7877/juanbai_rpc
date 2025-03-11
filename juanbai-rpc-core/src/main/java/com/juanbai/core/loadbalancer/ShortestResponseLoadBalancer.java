@@ -16,7 +16,7 @@ public class ShortestResponseLoadBalancer {
         if(serviceMetaInfoList.size()==0){
             return null;
         }
-        ServiceMetaInfo serviceMetaInfoResult = serviceMetaInfoList.getFirst();
+        ServiceMetaInfo serviceMetaInfoResult = serviceMetaInfoList.get(0);
         for (ServiceMetaInfo serviceMetaInfo : serviceMetaInfoList) {
             if(serviceMetaInfo.getCallTimes()/serviceMetaInfo.getServiceCallList().size()<serviceMetaInfoResult.getCallTimes()/serviceMetaInfo.getServiceCallList().size()){
                 serviceMetaInfoResult = serviceMetaInfo;

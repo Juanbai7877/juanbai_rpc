@@ -17,7 +17,7 @@ public class LeastActiveLoadBalancer {
         if(serviceMetaInfoList.size()==0){
             return null;
         }
-        ServiceMetaInfo serviceMetaInfoResult = serviceMetaInfoList.getFirst();
+        ServiceMetaInfo serviceMetaInfoResult = serviceMetaInfoList.get(0);
         for(ServiceMetaInfo serviceMetaInfo:serviceMetaInfoList){
             if(serviceMetaInfo.getServiceFailedCount()/serviceMetaInfo.getServiceCallCount()<
                     serviceMetaInfoResult.getServiceFailedCount()/serviceMetaInfoResult.getServiceCallCount()){
